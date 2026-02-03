@@ -1,0 +1,30 @@
+@startuml
+title Diagramme des composants du système Sudoku WFC
+
+actor Utilisateur
+
+package "Système Sudoku WFC" {
+  
+  package "Interface Utilisateur" as UI {
+    rectangle "Interface Graphique" as GUI
+    rectangle "Gestion des entrées\net affichage" as INPUT
+  }
+
+  package "Moteur WFC" as WFC {
+    rectangle "Résolveur de contraintes" as SOLVER
+    rectangle "Générateur de grilles" as GENERATOR
+  }
+
+  rectangle "Validateur logique" as VALID
+}
+
+' --- Relations principales ---
+Utilisateur --> INPUT : Jouer
+INPUT --> WFC : Demandes (résolution / génération)
+WFC --> VALID : Vérifie
+VALID --> GUI : Validation
+GENERATOR --> GUI : Grille générée
+SOLVER --> GUI : Solution trouvée
+GUI --> Utilisateur : Affiche grille
+
+@enduml

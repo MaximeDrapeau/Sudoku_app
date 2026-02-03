@@ -1,0 +1,10 @@
+diagramme1.pdf
+diagramme2.pdf
+diagramme3.pdf
+diagramme4.pdf
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc

@@ -1,0 +1,223 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\usefonttheme{professionalfonts}
+
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+% === Harmonisation des couleurs ===
+\setbeamercolor{structure}{fg=white}
+\setbeamercolor{frametitle}{fg=white,bg=blue!70!black}
+\setbeamercolor{footline}{fg=white,bg=blue!70!black}
+\setbeamercolor{section title}{fg=white,bg=blue!70!black}
+
+% === Page de titre personnalisée ===
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{subtitle}{fg=black}
+\setbeamercolor{author}{fg=black}
+\setbeamercolor{institute}{fg=black}
+\setbeamercolor{date}{fg=black}
+
+% Utilisation d'un bandeau bleu pour le titre
+\setbeamertemplate{title page}{
+  \vbox{}
+  \vfill
+  \begin{centering}
+    \colorbox{blue!70!black}{%
+      \parbox{\dimexpr\paperwidth-2em}{%
+        \centering
+        \usebeamerfont{title}\color{white}\inserttitle\par
+        \usebeamerfont{subtitle}\color{white}\insertsubtitle%
+      }%
+    }
+    \vspace{1cm}
+
+    {\usebeamerfont{author}\insertauthor\par}
+    {\usebeamerfont{institute}\insertinstitute\par}
+    {\usebeamerfont{date}\insertdate\par}
+  \end{centering}
+  \vfill
+}
+
+% === Police uniforme ===
+\setbeamerfont{frametitle}{family=\sffamily,series=\bfseries,size=\Large}
+\setbeamerfont{title}{family=\sffamily,series=\bfseries,size=\LARGE}
+\setbeamerfont{author}{family=\sffamily,size=\large}
+\setbeamerfont{institute}{family=\sffamily,size=\normalsize}
+\setbeamerfont{date}{family=\sffamily,size=\normalsize}
+\setbeamerfont{section title}{family=\sffamily,series=\bfseries,size=\huge}
+\setbeamerfont{footline}{size=\scriptsize}
+
+% === Pied de page ===
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.5ex,dp=1ex,left]{footline}%
+      \usebeamerfont{author in head/foot}Maxime, Émile et Mathis%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.34\paperwidth,ht=2.5ex,dp=1ex,center]{footline}%
+      \usebeamerfont{title in head/foot}-- \insertshorttitle{} --%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.5ex,dp=1ex,right]{footline}%
+      \usebeamerfont{date in head/foot}\textsc{Groupe 51}\hspace{1em}\insertframenumber{} / \inserttotalframenumber\hspace{1em}%
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+% === Page de section (grand titre au milieu sur bande bleue) ===
+\AtBeginSection[]{%
+  \begin{frame}[plain]
+    \vspace{2.5cm}
+    \begin{center}
+      \colorbox{blue!70!black}{%
+        \parbox{0.9\linewidth}{%
+          \centering\color{white}\usebeamerfont{section title}\insertsection%
+        }%
+      }%
+    \end{center}
+  \end{frame}
+}
+
+% === Métadonnées ===
+\title{INM5151 - Projet de Sudoku}
+\subtitle{Présentation}
+\author{Maxime Drapeau \and Émile Locas \and Mathis Hurtubise}
+\institute{Université du Québec à Montréal \\ \textsc{Groupe 51}}
+\date{}
+
+\begin{document}
+
+% Page de titre
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% --- Section : Introduction ---
+\section{Introduction}
+
+\begin{frame}
+  \frametitle{Portée du système}
+  Application complète de Sudoku: Complete Sudoku
+  \begin{itemize}
+    \item Génération et résolution de grilles
+    \item Importation de grilles personnalisées
+    \item Validation de ces grilles personnalisée
+    \item Jeu de Sudoku interactif avec retours en temps réel
+  \end{itemize}
+\end{frame}
+
+% --- Section : Analyse du système existant ---
+\section{Analyse du système existant}
+  
+\begin{frame}
+  \frametitle{Contexte du système actuel}
+  \begin{itemize}
+    \item Méthode manuel (papier/crayon)
+    \item Applications incomplètes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Description du système actuel}
+  Les applications offertes sont fragmentés
+
+  Règles:
+  \begin{itemize}
+    \item La partie se déroule sur une grille 9x9
+    \item Cette grille est aussi séparé en 9 sous-grilles (3x3)
+    \item La grille 9x9 est partiellement remplie de chiffres (1-9)
+    \item les chiffres (1-9) doivent apparaître une fois par colonne
+    \item les chiffres (1-9) doivent apparaître une fois par ligne
+    \item les chiffres (1-9) doivent apparaître une fois par sous-grille
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Modes d'opérations}
+  Liste non exhaustive de fonctionnalités offertes par les applications sur le marché:
+  \begin{itemize}
+    \item Résolution automatique
+    \item Génération autommatique selon un niveau de difficulté
+    \item Jeu intéractif (parfois avec retours en temps réel)
+  \end{itemize}
+\end{frame}
+% --- Section : Les changements envisagés ---
+\section{Les changements envisagés}
+
+\begin{frame}
+  \frametitle{Objectifs de changement}
+  \begin{itemize}
+    \item Création d'un système modulaire et performant
+    \item Simplifier la génération de grilles valides
+    \item Introduire des fonctions d’aide intelligentes
+  \end{itemize}
+\end{frame}
+
+% --- Section : Le nouveau système proposé ---
+\section{Le nouveau système proposé}
+
+\begin{frame}
+  \frametitle{Vision générale du système}
+  \begin{itemize}
+    \item Nouveau moteur basé sur \textbf{Wave Function Collapse (WFC)}
+    \item Architecture modulaire et extensible
+    \item Composantes principales :
+      \begin{itemize}
+        \item Moteur WFC (génération et résolution)
+        \item Module de validation
+        \item Interface utilisateur
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fonctionnement global}
+  \begin{enumerate}
+    \item L’utilisateur choisit de résoudre ou générer une grille
+    \item Le moteur WFC propage les contraintes
+    \item Les possibilités invalides sont éliminées
+    \item Le validateur vérifie la cohérence finale
+    \item L’interface affiche le résultat au joueur
+  \end{enumerate}
+  \vspace{0.5cm}
+  \textbf{Résultat :} génération rapide, solution garantie et cohérente.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Architecture du système}
+  \centering
+  \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{diagramme4.pdf}
+  \vspace{0.3cm}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Choix technologiques}
+  \begin{itemize}
+    \item Langage \textbf{Rust} pour la performance et la sécurité mémoire
+    \item Architecture modulaire facilitant l’ajout futur de fonctionnalités
+    \item Possibilité d’intégrer une interface graphique
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Avantages du système proposé}
+  \begin{itemize}
+    \item Résolution rapide et fiable des grilles
+    \item Génération procédurale cohérente
+    \item Architecture claire et maintenable
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conclusion}
+  \begin{itemize}
+    \item Le nouveau système transforme le Sudoku en une application intelligente et évolutive
+    \item Le moteur WFC apporte robustesse et efficacité
+  \end{itemize}
+\end{frame}
+
+\end{document}

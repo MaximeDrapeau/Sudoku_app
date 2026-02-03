@@ -1,0 +1,25 @@
+@startuml
+actor Utilisateur
+
+package "Système Sudoku WFC" {
+  rectangle "Interface Utilisateur\n(Console ou GUI)" as UI
+  rectangle "Moteur de résolution\n(Wave Function Collapse)" as WFC
+  rectangle "Générateur procédural\nde grilles adaptées" as GEN
+  rectangle "Module d’assistance\n(Indices, détection d’erreurs)" as HINT
+  rectangle "Validateur logique\n(contrôle de cohérence)" as VALID
+}
+
+Utilisateur --> UI : Joue, saisit une grille\nou demande une aide
+UI --> WFC : Demande de résolution
+UI --> GEN : Demande de génération
+UI --> HINT : Demande d'indice / vérification
+
+GEN --> UI : Grille générée (selon difficulté)
+WFC --> UI : Solution complète ou étape suivante
+HINT --> UI : Indice / Erreur détectée
+
+WFC --> VALID : envoie pour validation
+GEN --> VALID : envoie pour validation
+HINT --> VALID : demande vérification
+VALID --> UI : Résultat de validation
+@enduml
