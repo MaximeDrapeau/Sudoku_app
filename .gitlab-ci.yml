@@ -1,0 +1,48 @@
+image: rustlang/rust:nightly
+
+stages:
+  - test
+  - format
+  - lint
+  - eslint
+
+test:
+  stage: test
+
+  artifacts:
+    when: always
+    reports:
+      junit: test-results/*.xml
+
+  before_script:
+    - apt-get update -yqq
+    - apt-get install -yqq build-essential libwebkit2gtk-4.1-dev curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev libgtk-3-dev
+  script:
+    - cd ./src-tauri; cargo +nightly install junitify; cargo +nightly test -- --format=json -Z unstable-options --report-time | junitify --out ../test-results
+
+format:
+  stage: format
+  needs: []
+
+  before_script:
+    - rustup component add rustfmt
+  script:
+    - make format
+
+lint:
+  stage: lint
+  needs: []
+
+  before_script:
+    - apt-get update -yqq
+    - apt-get install -yqq build-essential libwebkit2gtk-4.1-dev curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev libgtk-3-dev
+    - rustup component add clippy
+  script:
+    - make lint
+
+eslint:
+  stage: eslint
+  image: node:latest
+  needs: []
+  script:
+    - make eslint-ci
